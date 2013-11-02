@@ -1,0 +1,18 @@
+This is rough software for drawing trees.
+
+It might be useful for e.g. debugging some code that deals with trees,
+or to automatically generate pictures of trees built in a certain fashion.
+
+Its dependencies are: Python 2.x and pygame
+
+It takes its input as a single-line S-expression piped via stdin.
+It outputs an image file specified by an argument. The supported
+image formats are those supported by pygame, i.e. BMP, TGA, PNG, JPEG.
+
+Here's an example invocation:
+
+ echo '(1 (2 (3 a b c) 4 (5 6 7 (8 9) 10) (11 x)) z)' | ./drawtree.py test.png
+
+There are some more samples in the "samples" directory. They can be
+automatically built via the script "make-samples.sh".
+
