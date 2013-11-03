@@ -92,6 +92,12 @@ def est_width(tn):
 
 ###################################################################
 
+# deal with cli args
+make_square = False
+if "--square" in sys.argv:
+	make_square = True
+	sys.argv.remove("--square")
+
 # get output file
 if len(sys.argv) < 2:
 	print "use: %s output.{png,bmp,tga,jpg}" % (sys.argv[0])
@@ -109,6 +115,11 @@ h = 480
 # make the dimensions bigger if necessary
 w = max(w, est_width(t))
 h = max(h, est_height(t))
+
+# make it square ?
+if make_square:
+	w = max(w, h)
+	h = w
 
 pygame.init()		# mandatory
 
