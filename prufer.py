@@ -12,20 +12,19 @@
 # assume nodelist is sorted
 nodelist = map(lambda u: int(u), raw_input().strip().split(" "))
 botrow = map(lambda u: int(u), raw_input().strip().split(" "))
-botrow += [botrow[1]]
+botrow += [nodelist[0]]
 
 toprow = []
 i = 0
 while len(toprow) < len(botrow):
 	for n in nodelist:
-		if n != botrow[0] and n not in botrow[i:] and n not in toprow:
+		if n not in botrow[i:] and n not in toprow:
 			toprow += [n]
 			break
 	i += 1
 
 def recurse(n):
 	s = "(" + str(n)
-	j = 0
 	for i in range(len(botrow)):
 		if botrow[i] == n:
 			s += " "
@@ -33,4 +32,4 @@ def recurse(n):
 	s += ")"
 	return s
 
-print recurse(botrow[0])
+print recurse(nodelist[0])
