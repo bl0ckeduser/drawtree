@@ -2,3 +2,4 @@ samples/*.png
 old
 old/*
 *.pyc
+*.png

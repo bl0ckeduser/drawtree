@@ -16,3 +16,15 @@ Here's an example invocation:
 There are some more samples in the "samples" directory. They can be
 automatically built via the script "make-samples.sh".
 
+------------------------------------------------------------------------
+
+Prufer code decoding 
+====================
+
+For general info on Prufer codes are, please see:
+http://en.wikipedia.org/wiki/Pr%C3%BCfer_sequence
+
+An example invocation is:
+
+  cat prufer-samples/1.txt | ./prufer.py | ./drawtree.py test.png 
+
