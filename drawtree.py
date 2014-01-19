@@ -73,20 +73,22 @@ def listd(tn, d):
 
 # estimate required height in pixels
 def est_height(tn):
-	return height(tn) * 50
+	return height(tn) * 20
 
 # estimate required width in pixels
 def est_width(tn):
 	l = []
 	# for each depth-level,
 	for d in range(height(tn)):
-		# estimate reasonable width at this depth as:
-		# 12 pixels * (longest node head-text string + 30 pixels of space)
-		#           * number of nodes at this depth
-		w = len(listd(tn, d)) * (max(map(lambda u: len(u[0]) * 12, listd(tn, d))) + 30)
+		# estimate reasonable width at this depth
+		tot_text_pixels = 0
+		stuff = listd(tn, d)
+		for k in stuff:
+			if type(k[0]) == str:
+				tot_text_pixels += 15 * len(k[0])
+		tot_text_pixels += 40
+		w = max(tot_text_pixels, 40 * len(stuff))
 		l.append(w)
-		# debugging
-		#print map(lambda u: u[0], listd(tn, d)), w
 	# choose the largest depth-width
 	return max(l)
 
