@@ -5,14 +5,18 @@
 # by blockeduser,
 # Tue Oct 29 00:18:45 EDT 2013
 
-def sexp2list_iter(sexp_str, i):
+def sexp2list_iter(sexp_str, i, depth=0):
 	result = None
+	start = i
 	while i < len(sexp_str):
+		# consume whitespace
+		while i < len(sexp_str) and (sexp_str[i] == ' ' or sexp_str[i] == '\t'):
+			i += 1
 		# parse a list
 		if sexp_str[i] == '(':
 			i += 1
 			result = []
-			while i < len(sexp_str) and sexp_str[i] != ')':
+			while i < len(sexp_str):
 				# consume whitespace
 				while i < len(sexp_str) and (sexp_str[i] == ' ' or sexp_str[i] == '\t'):
 					i += 1
@@ -21,24 +25,24 @@ def sexp2list_iter(sexp_str, i):
 					break
 				# try to add a list-child
 				old = i
-				child, i = sexp2list_iter(sexp_str, i)
+				child, i = sexp2list_iter(sexp_str, i, depth+1)
 				# if child-parsing failed, break
 				if old == i:
 					break
 				else:
 					# otherwise add the child and carry on
 					result.append(child)
+				# consume whitespace
+				while i < len(sexp_str) and (sexp_str[i] == ' ' or sexp_str[i] == '\t'):
+					i += 1
 				# eat ) and terminate upon it
 				if sexp_str[i] == ')':
 					i += 1
 					break
-				i += 1
 			return (result, i)
 		else:
 			# parse a symbol
 			result = ""
-			while sexp_str[i] == ' ' or sexp_str[i] == '\t':
-				i += 1
 			while i < len(sexp_str) and not (sexp_str[i] == ')' or sexp_str[i] == ' ' or sexp_str[i] == '\t'):
 				result += sexp_str[i]
 				i += 1
