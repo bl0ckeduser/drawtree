@@ -123,7 +123,11 @@ if make_square:
 	w = max(w, h)
 	h = w
 
-pygame.init()		# mandatory
+# pygame.init() initializes all the SDL modules and
+# makes the quit routine super slow (like 1 full second to exit !!)
+# apparently it's the audio module's fault
+pygame.display.init()
+pygame.font.init()
 
 # get a window
 win = pygame.Surface((w, h))
