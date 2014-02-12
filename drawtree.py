@@ -86,7 +86,7 @@ def est_width(tn):
 		for k in stuff:
 			if type(k[0]) == str:
 				tot_text_pixels += 15 * len(k[0])
-		tot_text_pixels += 40
+		tot_text_pixels += 5 * len(stuff)
 		w = max(tot_text_pixels, 40 * len(stuff))
 		l.append(w)
 	# choose the largest depth-width
@@ -202,6 +202,7 @@ for i in range(height(t)):
 
 # save result to imagefile and leave happily
 pygame.image.save(win, outf)
+
 sys.exit(0)
 
 
