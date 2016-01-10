@@ -161,10 +161,19 @@ nl = [t]
 pcl = [None]
 pid = [0]
 
+prev = -1
+
 for i in range(height(t)):
 	# Split horizontal axis into '(n+1)' equal-sized chunks,
 	# where n is the number of (non-empty) nodes at this depth
-	xchunk = w / (len(nl) + 1)
+	xlen = (len(nl) + 1)
+
+	if prev > 0 and prev > xlen:
+		xlen = prev
+
+	prev = xlen
+
+	xchunk = w / xlen
 
 	# Draw all the (non-empty) nodes that occur at this height
 	cl = []
