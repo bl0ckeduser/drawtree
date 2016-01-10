@@ -164,8 +164,14 @@ pid = [0]
 prev = -1
 
 for i in range(height(t)):
-	# Split horizontal axis into '(n+1)' equal-sized chunks,
-	# where n is the number of (non-empty) nodes at this depth
+	for j in range(len(nl)):
+		if type(nl[j]) != list or (type(nl[j])==list and len(nl[j])==1):
+			if (type(nl[j])==list and len(nl[j])==1):
+				nl[j] = [nl[j][0], 0]
+			else:
+				nl[j] = [nl[j], 0]
+
+	# Split horizontal axis into equal-sized chunk
 	xlen = (len(nl) + 1)
 
 	if prev > 0 and prev > xlen:
@@ -180,17 +186,20 @@ for i in range(height(t)):
 	xc = xchunk
 	yc = ychunk * i
 	idx = 0
-	for node in nl:	
+	for node in nl:
 		if node != None:
+			null_node = head(node) == 0
 			cl.append([xc, yc+40])
 			if i > 0:
 				# draw line to parent
 				pc = pcl[pid[idx]]
-				pygame.draw.line(win, black, (xc, yc), tuple(pc)) 
+				if not null_node:
+					pygame.draw.line(win, black, (xc, yc), tuple(pc)) 
 				pass
 			# draw the node
-			pygame.draw.circle(win, black, (xc, yc+20), 20, 1)		
-			write_text(str(head(node)), xc, yc+20)
+			if not null_node:
+				pygame.draw.circle(win, black, (xc, yc+20), 20, 1)		
+				write_text(str(head(node)), xc, yc+20)
 		else:
 			cl.append(None)
 		xc += xchunk
